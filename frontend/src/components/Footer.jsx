@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiInstagram, FiLinkedin, FiMail, FiX } from "react-icons/fi";
 import Logo from "./common/Logo";
 
 function IconBtn({ href, label, children }) {
@@ -25,6 +25,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   const { pathname } = useLocation();
   const [showTop, setShowTop] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const profileImage = "/images/naga-chaithanya.jpeg";
 
   useEffect(() => {
@@ -139,7 +140,11 @@ export default function Footer() {
             <p className="mt-3 text-sm text-white/60">
               Certificates • Quizzes • Progress Tracking • Secure Login
             </p>
-            <div className="mt-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+            <button
+              type="button"
+              onClick={() => setProfileOpen(true)}
+              className="mt-4 flex w-full items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-left transition hover:bg-white/[0.07]"
+            >
               <img
                 src={profileImage}
                 alt="NagaChaithanya M"
@@ -150,7 +155,7 @@ export default function Footer() {
                 <p className="text-sm font-semibold text-white">Made by NagaChaithanya.M</p>
                 <p className="text-xs text-white/60">Developer</p>
               </div>
-            </div>
+            </button>
           </motion.div>
         </div>
 
@@ -186,6 +191,64 @@ export default function Footer() {
         >
           Top
         </motion.button>
+      )}
+
+      {profileOpen && (
+        <div
+          className="fixed inset-0 z-[90] grid place-items-center bg-black/75 p-4 backdrop-blur-sm"
+          onClick={() => setProfileOpen(false)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.18 }}
+            className="relative w-full max-w-lg rounded-3xl border border-white/10 bg-[#090b11] p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setProfileOpen(false)}
+              aria-label="Close profile"
+              className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/10 text-white/90 transition hover:bg-white/20"
+            >
+              <FiX />
+            </button>
+
+            <img
+              src={profileImage}
+              alt="NagaChaithanya M full profile"
+              className="h-auto w-full rounded-2xl border border-white/15 object-cover"
+            />
+
+            <div className="mt-4">
+              <p className="text-xl font-bold text-white">NagaChaithanya.M</p>
+              <p className="mt-1 text-sm text-white/65">Developer Profile</p>
+              <div className="mt-3 flex items-center gap-3 text-sm">
+                <a className="text-[#fbbf24] hover:text-[#ffd56f]" href="mailto:chaithanyan917@gmail.com">
+                  Email
+                </a>
+                <span className="text-white/25">•</span>
+                <a
+                  className="text-[#fbbf24] hover:text-[#ffd56f]"
+                  href="https://www.instagram.com/nagachaithanya_917/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Instagram
+                </a>
+                <span className="text-white/25">•</span>
+                <a
+                  className="text-[#fbbf24] hover:text-[#ffd56f]"
+                  href="https://www.linkedin.com/in/naga-chaithanya-51702a386?trk=contact-info"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       )}
     </footer>
   );
