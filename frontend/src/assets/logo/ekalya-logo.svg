@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="ekalyaTitle ekalyaDesc">
+  <title id="ekalyaTitle">Ekalya Learning Platform Logo</title>
+  <desc id="ekalyaDesc">Stylized blue E icon with orange leaf and Ekalya Learning Platform text</desc>
+  <defs>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="24" y="42" width="214" height="236" rx="36" fill="#1E3A8A"/>
+  <path d="M86 108c0-11 9-20 20-20h80c26 0 53-13 69-35h38c-16 43-56 72-107 72h-80v71h150c-4 17-13 32-26 44H106c-11 0-20-9-20-20V108z" fill="#FFFFFF"/>
+  <path d="M180 86c28-16 58-41 63-77 20 33 20 86-10 116-25 25-71 34-84 70-8-54 16-86 31-109z" fill="url(#leafGradient)"/>
+  <path d="M176 182c38-15 67-33 77-62-2 32-23 57-67 73z" fill="#FFFFFF"/>
+  <path d="M235 278c15-10 27-24 34-42H98c-8 0-12-5-12-12v-71l-45 6v87c0 35 20 53 53 53h141z" fill="#1E3A8A"/>
+
+  <line x1="280" y1="54" x2="280" y2="278" stroke="#9CA3AF" stroke-width="2"/>
+
+  <text x="330" y="175" fill="#1E3A8A" font-size="152" font-family="Poppins, Segoe UI, Arial, sans-serif" font-weight="700">Ekalya</text>
+  <text x="332" y="274" fill="#374151" font-size="72" font-family="Poppins, Segoe UI, Arial, sans-serif" font-weight="500">Learning Platform</text>
+</svg>

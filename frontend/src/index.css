@@ -1,0 +1,342 @@
+/* ✅ FILE: frontend/src/index.css */
+
+/* Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+/* Tailwind v4 */
+@import "tailwindcss";
+
+/* ================= THEME TOKENS ================= */
+/* Default theme = DARK (your current look) */
+:root {
+  --bg: #07080d;
+  --bg2: #05060a;
+
+  --card: rgba(255, 255, 255, 0.06);
+  --card2: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.12);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.65);
+
+  --gold: #f7d774;
+  --gold2: #ffcf40;
+  --fire: #ff4d2e;
+  --water: #00d1ff;
+  --cold: #6a7cff;
+  --red: #ff3344;
+
+  --ring: rgba(247, 215, 116, 0.35);
+  --shadow: 0 0 22px rgba(0, 0, 0, 0.25);
+}
+
+/* ✅ SECOND THEME (STILL DARK): MIDNIGHT BLUE (matches your 2nd image vibe) */
+html[data-theme="midnight"] {
+  --bg: #070b14;
+  --bg2: #050814;
+
+  --card: rgba(255, 255, 255, 0.05);
+  --card2: rgba(255, 255, 255, 0.075);
+  --border: rgba(255, 255, 255, 0.10);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.66);
+
+  --gold: #f2d06b;
+  --gold2: #ffc94a;
+  --fire: #ff6a2d;
+  --water: #36d2ff;
+  --cold: #7b8bff;
+
+  --ring: rgba(54, 210, 255, 0.25);
+  --shadow: 0 0 28px rgba(0, 0, 0, 0.32);
+}
+
+/* ================= BASE STYLES ================= */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  overflow-x: hidden;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(247, 215, 116, 0.22);
+  color: white;
+}
+
+/* ================= APP BACKGROUND ================= */
+/* Use this class on your root wrapper to get the animated theme */
+.app-bg {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg), var(--bg2));
+}
+
+/* Subtle animated “fog” using gradients only (no image) */
+.app-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(247, 215, 116, 0.10), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(255, 77, 46, 0.08), transparent 40%),
+    radial-gradient(circle at 30% 85%, rgba(0, 209, 255, 0.06), transparent 40%),
+    radial-gradient(circle at 70% 90%, rgba(106, 124, 255, 0.06), transparent 40%);
+  filter: blur(2px);
+  animation: fogFloat 10s ease-in-out infinite alternate;
+  opacity: 0.95;
+}
+
+@keyframes fogFloat {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(0, -10px, 0) scale(1.02);
+  }
+}
+
+/* ================= GLASS UI ================= */
+.glass {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+.glass-2 {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+/* Card hover polish */
+.glass-hover {
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.glass-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+/* ================= INPUTS ================= */
+input,
+select,
+textarea {
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 4px var(--ring);
+  border-color: rgba(247, 215, 116, 0.35) !important;
+}
+
+/* ================= BUTTONS ================= */
+.btn-gold {
+  background: var(--gold);
+  color: #000;
+  font-weight: 800;
+  border-radius: 14px;
+  padding: 12px 18px;
+  transition: 0.18s ease;
+  box-shadow: 0 12px 30px rgba(247, 215, 116, 0.12);
+}
+.btn-gold:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-radius: 14px;
+  padding: 12px 18px;
+  transition: 0.18s ease;
+}
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ================= GLOW & TEXT ================= */
+.text-gold {
+  color: var(--gold);
+}
+
+.active-glow {
+  box-shadow: 0 0 18px rgba(247, 215, 116, 0.18);
+  border-color: rgba(247, 215, 116, 0.22);
+}
+
+.glow-gold {
+  box-shadow: 0 0 22px rgba(247, 215, 116, 0.18);
+}
+
+.glow-pulse {
+  animation: glowPulse 2.2s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(247, 215, 116, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 26px rgba(255, 77, 46, 0.12);
+  }
+}
+
+/* ================= BADGES ================= */
+.badge {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+}
+.badge-done {
+  border-color: rgba(0, 209, 255, 0.35);
+  background: rgba(0, 209, 255, 0.12);
+}
+.badge-pending {
+  border-color: rgba(255, 77, 46, 0.30);
+  background: rgba(255, 77, 46, 0.12);
+}
+
+/* ================= BACKGROUND EFFECTS ================= */
+.bg-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+/* Animated gradient divider */
+.aurora-line {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    var(--fire),
+    var(--water),
+    transparent
+  );
+  filter: blur(0.2px);
+  opacity: 0.85;
+  animation: auroraMove 3.2s linear infinite;
+  background-size: 200% 100%;
+}
+@keyframes auroraMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+/* ================= SCROLLBAR ================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ================= HERO FULLSCREEN ================= */
+.hero-screen {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(247, 215, 116, 0.12),
+      transparent 45%
+    ),
+    radial-gradient(circle at 80% 30%, rgba(255, 77, 46, 0.10), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(0, 209, 255, 0.06), transparent 45%);
+}
+
+/* Robot (keep if you use it) */
+@keyframes waveWobble {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-10deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-8deg); }
+  80% { transform: rotate(8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes talkPulse {
+  0%, 100% { transform: scaleX(0.8); opacity: 0.35; }
+  50% { transform: scaleX(1.25); opacity: 1; }
+}
+
+.robot-float { animation: floatY 1.8s ease-in-out infinite; }
+.robot-wave { animation: waveWobble 0.6s ease-in-out 1; }
+.robot-mouth.talking { animation: talkPulse 0.22s ease-in-out infinite; }
+
+/* ✅ Optional: Shiny gradient text (you already wanted it) */
+.shiny-text {
+  background-size: 220% 220%;
+  animation: shinyShift 6.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
+}
+@keyframes shinyShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.glass {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
