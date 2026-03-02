@@ -165,6 +165,14 @@ app.use("/api/admin/payments", adminPaymentRoutes);
 // 🔹 Admin Razorpay payments table
 app.use("/api/admin/payments-table", adminPaymentsRoutes);
 
+app.get("/", (req, res) => {
+  res.json({ ok: true, message: "Ekalya API running ✅" });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ ok: true, status: "healthy ✅" });
+});
+
 /* ===================== 404 ===================== */
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
