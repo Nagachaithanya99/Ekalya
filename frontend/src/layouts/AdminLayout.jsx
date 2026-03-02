@@ -16,9 +16,9 @@ export default function AdminLayout() {
         <AdminSidebar />
 
         {/* Main Content */}
-        <main className="ml-[280px] w-full p-6 flex flex-col">
+        <main className="ml-[280px] w-full p-0 flex flex-col">
           {/* Content glass */}
-          <div className="glass rounded-3xl p-6 border border-white/10 flex-1">
+          <div className="glass rounded-none p-6 border border-white/10 flex-1">
             <Outlet />
           </div>
 

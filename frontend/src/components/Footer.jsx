@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
 import Logo from "./common/Logo";
 
 function IconBtn({ href, label, children }) {
@@ -13,8 +14,8 @@ function IconBtn({ href, label, children }) {
       target={href?.startsWith("http") ? "_blank" : undefined}
       rel={href?.startsWith("http") ? "noreferrer" : undefined}
     >
-      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition">
-        <span className="text-white/70 group-hover:text-white transition">{children}</span>
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] transition hover:bg-white/[0.06]">
+        <span className="text-white/70 transition group-hover:text-white">{children}</span>
       </span>
     </a>
   );
@@ -24,6 +25,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   const { pathname } = useLocation();
   const [showTop, setShowTop] = useState(false);
+  const profileImage = "https://avatars.githubusercontent.com/Nagachaithanya99";
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 350);
@@ -64,7 +66,7 @@ export default function Footer() {
 
       <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#fbbf24]/60 to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-10">
+      <div className="relative w-full px-6 py-10">
         <div className="grid gap-10 md:grid-cols-3">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -76,26 +78,23 @@ export default function Footer() {
               <Logo size="medium" />
             </div>
 
-            <p className="mt-4 text-white/60 text-sm leading-relaxed">
+            <p className="mt-4 text-sm leading-relaxed text-white/60">
               Learn, track progress, take quizzes, and earn certificates in one smooth
               platform.
             </p>
 
             <div className="mt-5 flex items-center gap-3">
-              <IconBtn href="https://github.com/Nagachaithanya99" label="GitHub">
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.86 3.16 8.98 7.55 10.43.55.1.75-.24.75-.53v-1.9c-3.07.67-3.72-1.3-3.72-1.3-.5-1.27-1.22-1.6-1.22-1.6-1-.68.08-.67.08-.67 1.1.08 1.67 1.13 1.67 1.13.98 1.67 2.56 1.19 3.18.9.1-.71.38-1.19.7-1.46-2.45-.28-5.03-1.22-5.03-5.43 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.41.11-2.95 0 0 .93-.3 3.05 1.13.88-.24 1.82-.37 2.76-.37.94 0 1.88.13 2.76.37 2.12-1.43 3.05-1.13 3.05-1.13.6 1.54.22 2.67.11 2.95.7.77 1.13 1.75 1.13 2.95 0 4.22-2.58 5.15-5.04 5.42.39.34.74 1.02.74 2.06v3.05c0 .29.2.64.76.53 4.38-1.45 7.54-5.57 7.54-10.43C23.25 5.48 18.27.5 12 .5z" />
-                </svg>
+              <IconBtn href="mailto:chaithanyan917@gmail.com" label="Email">
+                <FiMail className="h-5 w-5" />
               </IconBtn>
-              <IconBtn href="https://www.linkedin.com/in/naga-chaithanya-51702a386/" label="LinkedIn">
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.95v5.66H9.35V9h3.42v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.64 0 4.31 2.4 4.31 5.52v6.22zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-                </svg>
+              <IconBtn href="https://www.instagram.com/nagachaithanya_917/" label="Instagram">
+                <FiInstagram className="h-5 w-5" />
               </IconBtn>
-              <IconBtn href="mailto:nchaithanya313@gmail.com" label="Email">
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z" />
-                </svg>
+              <IconBtn
+                href="https://www.linkedin.com/in/naga-chaithanya-51702a386?trk=contact-info"
+                label="LinkedIn"
+              >
+                <FiLinkedin className="h-5 w-5" />
               </IconBtn>
             </div>
           </motion.div>
@@ -106,7 +105,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.05 }}
           >
-            <p className="text-white font-semibold">Quick Links</p>
+            <p className="font-semibold text-white">Quick Links</p>
             <div className="mt-4 grid gap-2">
               {nav.map((l) => {
                 const active = pathname === l.to;
@@ -116,12 +115,14 @@ export default function Footer() {
                     to={l.to}
                     className={[
                       "group flex items-center justify-between rounded-xl border border-white/10 px-4 py-3",
-                      "bg-white/[0.03] hover:bg-white/[0.06] transition",
+                      "bg-white/[0.03] transition hover:bg-white/[0.06]",
                       active ? "ring-1 ring-[#fbbf24]/40" : "",
                     ].join(" ")}
                   >
-                    <span className="text-white/75 group-hover:text-white transition">{l.label}</span>
-                    <span className="text-[#fbbf24]/80 group-hover:text-[#fbbf24] transition">→</span>
+                    <span className="text-white/75 transition group-hover:text-white">{l.label}</span>
+                    <span className="text-[#fbbf24]/80 transition group-hover:text-[#fbbf24]">
+                      -&gt;
+                    </span>
                   </Link>
                 );
               })}
@@ -134,28 +135,40 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <p className="text-white font-semibold">Platform</p>
-            <p className="mt-3 text-white/60 text-sm">
+            <p className="font-semibold text-white">Platform</p>
+            <p className="mt-3 text-sm text-white/60">
               Certificates • Quizzes • Progress Tracking • Secure Login
             </p>
+            <div className="mt-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+              <img
+                src={profileImage}
+                alt="NagaChaithanya M"
+                className="h-14 w-14 rounded-full border border-white/20 object-cover"
+                loading="lazy"
+              />
+              <div>
+                <p className="text-sm font-semibold text-white">Made by NagaChaithanya.M</p>
+                <p className="text-xs text-white/60">Developer</p>
+              </div>
+            </div>
           </motion.div>
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="text-white/45 text-sm">
-            © {year} Ekalya Learning Platform. All rights reserved.
+          <p className="text-sm text-white/45">
+            © {year} Ekalya Learning Platform. Made by NagaChaithanya.M
           </p>
 
           <div className="flex items-center gap-4 text-sm">
-            <Link className="text-white/45 hover:text-white transition" to="/contact">
+            <Link className="text-white/45 transition hover:text-white" to="/contact">
               Support
             </Link>
             <span className="text-white/20">•</span>
-            <a className="text-white/45 hover:text-white transition" href="#">
+            <a className="text-white/45 transition hover:text-white" href="#">
               Privacy
             </a>
             <span className="text-white/20">•</span>
-            <a className="text-white/45 hover:text-white transition" href="#">
+            <a className="text-white/45 transition hover:text-white" href="#">
               Terms
             </a>
           </div>
@@ -169,9 +182,9 @@ export default function Footer() {
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.94 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 left-6 z-50 rounded-2xl border border-white/10 bg-black/60 px-4 py-3 text-white/80 hover:text-white hover:bg-black/75 shadow-lg backdrop-blur"
+          className="fixed bottom-6 left-6 z-50 rounded-2xl border border-white/10 bg-black/60 px-4 py-3 text-white/80 shadow-lg backdrop-blur hover:bg-black/75 hover:text-white"
         >
-          ↑ Top
+          Top
         </motion.button>
       )}
     </footer>

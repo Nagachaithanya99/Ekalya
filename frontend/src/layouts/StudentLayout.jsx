@@ -31,8 +31,7 @@ export default function StudentLayout() {
         className="
           lg:ml-[300px]
           pt-[84px]
-          px-4
-          sm:px-6
+          px-0
           pb-10
           transition-all
         "
@@ -44,7 +43,7 @@ export default function StudentLayout() {
           transition={{ duration: 0.35 }}
           className="
             glass
-            rounded-3xl
+            rounded-none
             p-4
             sm:p-6
             min-h-[calc(100vh-120px)]

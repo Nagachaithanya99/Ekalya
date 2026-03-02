@@ -48,7 +48,7 @@ export default function Navbar({ onMenuClick }) {
       <div className="glass bg-grid border-b border-white/10">
         <div className="aurora-line" />
 
-        <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5">
+        <div className="flex h-[74px] w-full items-center justify-between px-5">
           {/* Left */}
           <div className="flex items-center gap-3">
             {onMenuClick && (

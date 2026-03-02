@@ -14,7 +14,7 @@ export default function PublicLayout() {
       {/* top subtle divider line */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <main className="mx-auto max-w-7xl px-5 py-8 flex-1">
+      <main className="w-full px-0 py-8 flex-1">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

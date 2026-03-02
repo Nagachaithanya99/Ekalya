@@ -7,7 +7,7 @@ import Logo from "../common/Logo";
 export default function TopBar() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07080d]/90 backdrop-blur-xl">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <DesktopNavbar />
 
         <div className="flex h-14 items-center justify-between md:hidden">
