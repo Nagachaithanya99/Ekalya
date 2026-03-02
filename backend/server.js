@@ -38,6 +38,7 @@ import razorpayRoutes from "./routes/razorpayRoutes.js";
 
 // ✅ Admin Razorpay enrollments + payments table
 import adminPaymentsRoutes from "./routes/adminPaymentsRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 /* ===================== ERROR HANDLER ===================== */
 import errorHandler from "./middleware/errorHandler.js";
@@ -165,6 +166,7 @@ app.use("/api/admin/payments", adminPaymentRoutes);
 
 // 🔹 Admin Razorpay payments table
 app.use("/api/admin/payments-table", adminPaymentsRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 app.get("/", (req, res) => {
   res.json({ ok: true, message: "Ekalya API running ✅" });

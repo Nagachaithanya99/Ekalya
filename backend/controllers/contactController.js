@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 import ContactMessage from "../models/ContactMessage.js";
+import { notifyAdmins } from "../services/notificationService.js";
+
+const safeNotify = async (promise) => {
+  try {
+    await promise;
+  } catch (err) {
+    console.error("Notification error:", err?.message || err);
+  }
+};
 
 /* PUBLIC: POST /api/contact */
 export const sendMessage = async (req, res, next) => {
@@ -17,6 +26,16 @@ export const sendMessage = async (req, res, next) => {
       message: String(message).trim(),
       status: "unread",
     });
+
+    safeNotify(
+      notifyAdmins({
+        type: "message",
+        title: "New Contact Message",
+        message: `${saved.name} sent a message: ${saved.subject || "General inquiry"}`,
+        link: "/admin/messages",
+        meta: { messageId: String(saved._id), email: saved.email },
+      })
+    );
 
     res.status(201).json({ message: "Message sent", id: saved._id });
   } catch (err) {

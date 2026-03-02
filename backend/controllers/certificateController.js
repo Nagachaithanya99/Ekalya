@@ -5,6 +5,7 @@ import Certificate from "../models/Certificate.js";
 import Course from "../models/Course.js";
 import generateCertificate from "../utils/generateCertificate.js";
 import { sendEmail } from "../utils/sendEmail.js";
+import { notifyUser } from "../services/notificationService.js";
 
 const TEMPLATE_OPTIONS = [
   {
@@ -194,6 +195,20 @@ export const publishCertificate = async (req, res, next) => {
     }
 
     await cert.save();
+
+    try {
+      await notifyUser(cert.userId?._id || cert.userId, {
+        type: "certificate",
+        title: "Certificate Published",
+        message: `Your certificate for "${cert.courseId?.title || "course"}" is now available.`,
+        link: "/student/certificates",
+        meta: { certificateId: String(cert._id), courseId: String(cert.courseId?._id || "") },
+        createdBy: req.user?._id || null,
+      });
+    } catch (notifyErr) {
+      console.error("Notification error:", notifyErr?.message || notifyErr);
+    }
+
     res.json({ certificate: cert, emailSent });
   } catch (err) {
     next(err);

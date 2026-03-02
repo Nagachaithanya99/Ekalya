@@ -34,6 +34,7 @@ import Profile from "./pages/student/Profile";
 import Quiz from "./pages/student/Quiz";
 import PayEnroll from "./pages/student/PayEnroll";
 import StudentPayments from "./pages/student/Payments";
+import StudentNotifications from "./pages/student/Notifications";
 
 /* Admin Pages */
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -47,6 +48,7 @@ import AdminCertificates from "./pages/admin/Certificates";
 import Messages from "./pages/admin/Messages";
 import Payments from "./pages/admin/Payments";
 import PaymentsTable from "./pages/admin/PaymentsTable";
+import AdminNotifications from "./pages/admin/Notifications";
 /* Quiz Admin */
 import AdminQuizzes from "./pages/admin/Quizzes";
 import AdminCourseList from "./pages/admin/AdminCourseList";
@@ -110,6 +112,7 @@ export default function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="pay/:id" element={<PayEnroll />} />
         <Route path="payments" element={<StudentPayments />} />
+        <Route path="notifications" element={<StudentNotifications />} />
         <Route path="v2/courses" element={<StudentCourseList />} />
         <Route path="v2/courses/:id" element={<StudentCourseDashboard />} />
         <Route path="v2/lesson/:courseId/:lessonId" element={<LessonViewer />} />
@@ -154,6 +157,7 @@ export default function App() {
         <Route path="blogs" element={<Blogs />} />
         <Route path="certificates" element={<AdminCertificates />} />
         <Route path="messages" element={<Messages />} />
+        <Route path="notifications" element={<AdminNotifications />} />
         <Route path="payments" element={<Payments />} />
         <Route path="quizzes" element={<AdminQuizzes />} />
         <Route path="payments-table" element={<PaymentsTable />} />

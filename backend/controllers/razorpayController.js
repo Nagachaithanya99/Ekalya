@@ -4,6 +4,15 @@ import Course from "../models/Course.js";
 import Enrollment from "../models/Enrollment.js";
 import Payment from "../models/Payment.js";
 import PaymentRequest from "../models/PaymentRequest.js";
+import { notifyAdmins, notifyUser } from "../services/notificationService.js";
+
+const safeNotify = async (promise) => {
+  try {
+    await promise;
+  } catch (err) {
+    console.error("Notification error:", err?.message || err);
+  }
+};
 
 const BILL_TAX_PERCENT = Number(process.env.PAYMENT_TAX_PERCENT || 18);
 const PLATFORM_FEE = Number(process.env.PAYMENT_PLATFORM_FEE || 0);
@@ -241,6 +250,27 @@ export const verifyRazorpayPayment = async (req, res) => {
         },
       },
       { upsert: true }
+    );
+
+    safeNotify(
+      notifyUser(req.user._id, {
+        type: "payment",
+        title: "Payment Successful",
+        message: `Payment for "${course.title}" was successful. You are now enrolled.`,
+        link: "/student/payments",
+        meta: { courseId: String(course._id), paymentId: razorpay_payment_id },
+      })
+    );
+
+    safeNotify(
+      notifyAdmins({
+        type: "payment",
+        title: "New Razorpay Payment",
+        message: `${req.user?.name || req.user?.email || "Student"} paid for "${course.title}".`,
+        link: "/admin/payments-table",
+        meta: { courseId: String(course._id), paymentId: razorpay_payment_id },
+        createdBy: req.user?._id || null,
+      })
     );
 
     return res.json({

@@ -17,21 +17,13 @@ export default function AdminSidebar() {
     { id: "admin-students", to: "/admin/students", label: "Students", icon: "🎓", tint: "cold" },
     { id: "admin-blogs", to: "/admin/blogs", label: "Blogs", icon: "📝", tint: "fire" },
     { id: "admin-certs", to: "/admin/certificates", label: "Certificates", icon: "🏆", tint: "gold" },
-
-    // ✅ Payments separated
     { id: "admin-pay-requests", to: "/admin/payments", label: "Payment Requests", icon: "🧾", tint: "gold" },
     { id: "admin-payments-table", to: "/admin/payments-table", label: "Razorpay Payments", icon: "💳", tint: "water" },
-
     { id: "admin-messages", to: "/admin/messages", label: "Messages", icon: "💬", tint: "water" },
+    { id: "admin-notifications", to: "/admin/notifications", label: "Notifications", icon: "🔔", tint: "gold" },
   ];
 
   return (
-    <Sidebar
-      title="Ekalya Admin Panel"
-      items={items}
-      fixed={true}
-      topOffset={72}
-      width={300}
-    />
+    <Sidebar title="Ekalya Admin Panel" items={items} fixed={true} topOffset={72} width={300} />
   );
 }

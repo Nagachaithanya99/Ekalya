@@ -2,8 +2,16 @@ import mongoose from "mongoose";
 import Course from "../models/Course.js";
 import Lesson from "../models/Lesson.js";
 import Quiz from "../models/Quiz.js";
+import { notifyAdmins, notifyStudents } from "../services/notificationService.js";
 
 const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
+const safeNotify = async (promise) => {
+  try {
+    await promise;
+  } catch (err) {
+    console.error("Notification error:", err?.message || err);
+  }
+};
 
 export const getCourses = async (req, res, next) => {
   try {
@@ -87,6 +95,20 @@ export const createCourse = async (req, res, next) => {
       quizzesFinalized: false,
     });
 
+    safeNotify(
+      notifyAdmins(
+        {
+          type: "course",
+          title: "New Course Draft Created",
+          message: `A new course draft "${course.title}" was created.`,
+          link: "/admin/courses",
+          meta: { courseId: String(course._id) },
+          createdBy: req.user?._id || null,
+        },
+        { excludeUserIds: req.user?._id ? [req.user._id] : [] }
+      )
+    );
+
     res.status(201).json(course);
   } catch (err) {
     next(err);
@@ -160,6 +182,31 @@ export const publishCourse = async (req, res, next) => {
     course.state = "PUBLISHED";
     course.published = true;
     await course.save();
+
+    safeNotify(
+      notifyStudents({
+        type: "course",
+        title: "New Course Added",
+        message: `"${course.title}" is now available to enroll.`,
+        link: "/courses",
+        meta: { courseId: String(course._id) },
+        createdBy: req.user?._id || null,
+      })
+    );
+
+    safeNotify(
+      notifyAdmins(
+        {
+          type: "course",
+          title: "Course Published",
+          message: `Course "${course.title}" has been published.`,
+          link: "/admin/courses",
+          meta: { courseId: String(course._id) },
+          createdBy: req.user?._id || null,
+        },
+        { excludeUserIds: req.user?._id ? [req.user._id] : [] }
+      )
+    );
 
     res.json(course);
   } catch (err) {

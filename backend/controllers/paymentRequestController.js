@@ -1,5 +1,15 @@
 import PaymentRequest from "../models/PaymentRequest.js";
 import Enrollment from "../models/Enrollment.js";
+import Course from "../models/Course.js";
+import { notifyAdmins, notifyUser } from "../services/notificationService.js";
+
+const safeNotify = async (promise) => {
+  try {
+    await promise;
+  } catch (err) {
+    console.error("Notification error:", err?.message || err);
+  }
+};
 
 /**
  * STUDENT: POST /api/payment-requests
@@ -41,6 +51,18 @@ export const createPaymentRequest = async (req, res) => {
       status: "pending",
       note: cleanNote, // ✅ student can send note (admin can overwrite on reject)
     });
+
+    const course = await Course.findById(courseId).select("title");
+    safeNotify(
+      notifyAdmins({
+        type: "payment",
+        title: "New Payment Request",
+        message: `${req.user?.name || req.user?.email || "Student"} requested payment approval for "${course?.title || "course"}".`,
+        link: "/admin/payments",
+        meta: { paymentRequestId: String(doc._id), courseId: String(courseId) },
+        createdBy: req.user?._id || null,
+      })
+    );
 
     return res.json(doc);
   } catch (err) {
@@ -116,6 +138,17 @@ export const adminApprovePaymentRequest = async (req, res) => {
     // keep any student note; don't wipe it
     await pr.save();
 
+    const course = await Course.findById(pr.courseId).select("title");
+    safeNotify(
+      notifyUser(pr.userId, {
+        type: "payment",
+        title: "Payment Approved",
+        message: `Your payment request for "${course?.title || "course"}" has been approved.`,
+        link: "/student/payments",
+        meta: { paymentRequestId: String(pr._id), courseId: String(pr.courseId) },
+      })
+    );
+
     return res.json({ success: true, message: "Approved & enrolled" });
   } catch (err) {
     console.error("adminApprovePaymentRequest error:", err);
@@ -142,6 +175,17 @@ export const adminRejectPaymentRequest = async (req, res) => {
     pr.status = "rejected";
     pr.note = String(note || "").trim();
     await pr.save();
+
+    const course = await Course.findById(pr.courseId).select("title");
+    safeNotify(
+      notifyUser(pr.userId, {
+        type: "payment",
+        title: "Payment Rejected",
+        message: `Your payment request for "${course?.title || "course"}" was rejected.${pr.note ? ` Reason: ${pr.note}` : ""}`,
+        link: "/student/payments",
+        meta: { paymentRequestId: String(pr._id), courseId: String(pr.courseId) },
+      })
+    );
 
     return res.json({ success: true, message: "Rejected" });
   } catch (err) {

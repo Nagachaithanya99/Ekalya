@@ -25,6 +25,13 @@ export default function StudentSidebar({ mobileOpen = false, onClose }) {
       tint: "gold",
     },
     {
+      id: "student-notifications",
+      to: "/student/notifications",
+      label: "Notifications",
+      icon: "🔔",
+      tint: "water",
+    },
+    {
       id: "student-progress",
       to: "/student/progress",
       label: "Progress",
@@ -56,23 +63,18 @@ export default function StudentSidebar({ mobileOpen = false, onClose }) {
         lg:translate-x-0
       `}
     >
-      <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-white/10 glass">
+      <div className="glass flex items-center justify-between border-b border-white/10 px-4 py-3 lg:hidden">
         <p className="font-semibold text-white">Ekalya Student Panel</p>
         <button
           onClick={onClose}
-          className="h-9 w-9 rounded-xl bg-white/10 border border-white/15 hover:bg-white/15 transition grid place-items-center"
+          className="grid h-9 w-9 place-items-center rounded-xl border border-white/15 bg-white/10 transition hover:bg-white/15"
         >
-          ×
+          X
         </button>
       </div>
 
       <div className="h-full">
-        <Sidebar
-          title="Student Panel"
-          items={items}
-          fixed={false}
-          onItemClick={onClose}
-        />
+        <Sidebar title="Student Panel" items={items} fixed={false} onItemClick={onClose} />
       </div>
     </aside>
   );
