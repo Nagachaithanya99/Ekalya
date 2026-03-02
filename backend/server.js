@@ -49,19 +49,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /* ===================== MIDDLEWARE ===================== */
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "http://localhost:3000",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: (() => {
-      const configured = (process.env.CORS_ORIGINS || "")
-        .split(",")
-        .map((x) => x.trim())
-        .filter(Boolean);
-      const fallback = ["http://localhost:5173", "http://localhost:3000"];
-      return configured.length ? configured : fallback;
-    })(),
+    origin: function (origin, cb) {
+      if (!origin) return cb(null, true);
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      return cb(new Error("CORS blocked: " + origin), false);
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
