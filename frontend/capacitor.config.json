@@ -3,7 +3,7 @@
   "appName": "Ekalya",
   "webDir": "dist",
   "server": {
-    "url": "https://YOUR-FRONTEND.onrender.com",
+    "url": "https://ekalya-frontend.onrender.com",
     "cleartext": false,
     "allowNavigation": [
       "*.onrender.com"

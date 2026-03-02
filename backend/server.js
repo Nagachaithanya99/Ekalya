@@ -57,7 +57,7 @@ const allowedOrigins = [
     .split(",")
     .map((v) => v.trim())
     .filter(Boolean),
-  "https://YOUR-FRONTEND.onrender.com",
+  "https://ekalya-frontend.onrender.com",
   "capacitor://localhost",
   "http://localhost",
   "http://localhost:5173",
