@@ -25,7 +25,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   const { pathname } = useLocation();
   const [showTop, setShowTop] = useState(false);
-  const profileImage = "https://avatars.githubusercontent.com/Nagachaithanya99";
+  const profileImage = "/images/naga-chaithanya.jpeg";
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 350);
