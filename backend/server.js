@@ -52,6 +52,14 @@ const __dirname = path.dirname(__filename);
 /* ===================== MIDDLEWARE ===================== */
 const allowedOrigins = [
   process.env.CLIENT_URL,
+  process.env.FRONTEND_URL,
+  ...(process.env.CORS_ORIGINS || "")
+    .split(",")
+    .map((v) => v.trim())
+    .filter(Boolean),
+  "https://YOUR-FRONTEND.onrender.com",
+  "capacitor://localhost",
+  "http://localhost",
   "http://localhost:5173",
   "http://localhost:3000",
 ].filter(Boolean);

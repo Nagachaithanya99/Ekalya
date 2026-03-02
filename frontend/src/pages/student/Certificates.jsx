@@ -3,9 +3,9 @@ import Loader from "../../components/Loader";
 import { getMyCertificates } from "../../services/certificateService";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { resolveBackendOrigin } from "../../services/apiBase";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
-const BACKEND_ORIGIN = API_BASE.replace(/\/api$/, "");
+const BACKEND_ORIGIN = resolveBackendOrigin();
 
 export default function Certificates() {
   const navigate = useNavigate();

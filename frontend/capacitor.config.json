@@ -1,0 +1,12 @@
+{
+  "appId": "com.ekalya.app",
+  "appName": "Ekalya",
+  "webDir": "dist",
+  "server": {
+    "url": "https://YOUR-FRONTEND.onrender.com",
+    "cleartext": false,
+    "allowNavigation": [
+      "*.onrender.com"
+    ]
+  }
+}
